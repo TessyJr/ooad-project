@@ -3,5 +3,7 @@ module OOAD_Project {
 	requires javafx.graphics;
 	requires javafx.controls;
 	
+	opens model to javafx.base;
+	
 	exports main;
 }

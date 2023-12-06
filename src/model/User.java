@@ -3,12 +3,25 @@ package model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import main.Connect;
 
 public class User {
 	private static Connect con = Connect.getInstance();
+	private Integer userID;
 	private String username, email, password, role;
+	
+	public Integer getUserID() {
+		return userID;
+	}
+
+	public void setUserID(Integer id) {
+		this.userID = id;
+	}
 	
 	public String getUsername() {
 		return username;
@@ -69,7 +82,7 @@ public class User {
 		  
 		  try {
 		   while(rs.next()) {
-		    System.out.println(rs.getString("Email") + " " + rs.getString("Password"));
+//		    System.out.println(rs.getString("Email") + " " + rs.getString("Password"));
 		   }
 		  } catch (SQLException e2) {
 		   // TODO Auto-generated catch block
@@ -77,8 +90,74 @@ public class User {
 		  }
 	};
 	
-	public User(String username, String email, String password, String role) {
+	public static User getUserByEmail(String email) {
+	    String getUserQuery = String.format("SELECT * FROM users WHERE Email = '%s'", email);
+
+	    try (ResultSet rs = con.executeQuery(getUserQuery)) {
+	        if (rs.next()) {
+	        	Integer userId = rs.getInt("UserID");
+	            String username = rs.getString("Username");
+	            String userEmail = rs.getString("Email");
+	            String password = rs.getString("Password");
+	            String role = rs.getString("Role");
+	            
+	            User user = new User(userId, username, userEmail, password, role);
+
+	            return user;
+	        } else {
+	            return null;
+	        }
+	    } catch (SQLException e) {
+	        // Handle any SQL exception
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+	
+	public static ObservableList<User> getAllUsersInRole(String role) {
+        ObservableList<User> userList = FXCollections.observableArrayList();;
+
+        String query = String.format("SELECT * FROM users WHERE Role = '%s'", role);
+
+        try (
+        	PreparedStatement ps = con.preparedStatement(query);
+            ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Integer userId = rs.getInt("UserID");
+                String username = rs.getString("Username");
+	            String userEmail = rs.getString("Email");
+	            String password = rs.getString("Password");
+	            
+	            User user = new User(userId, username, userEmail, password, role);
+	            userList.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+	
+	public static void delete(Integer id) {
+		String query = String.format("DELETE FROM users WHERE UserID = %d", id);
+	
+	    PreparedStatement ps = con.preparedStatement(query);
+	    try {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	     
+
+	
+	public User(Integer userId, String username, String email, String password, String role) {
 		super();
+		this.userID = userId;
 		this.username = username;
 		this.email = email;
 		this.password = password;

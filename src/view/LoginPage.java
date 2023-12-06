@@ -1,9 +1,5 @@
 package view;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import controller.UserController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Connect;
+import model.User;
 
 public class LoginPage {
 	Connect con;
@@ -62,22 +59,32 @@ public class LoginPage {
 		bp.setCenter(formContainer);
 	}
 	
-	private void actions(Stage stage){
-		loginBtn.setOnMouseClicked(e -> {
-			String email = emailTF.getText();
-			String password = passwordPF.getText();
-			
-			if(!messageLabel.getText().equals("Success!")) {
-				messageLabel.setText(UserController.getUser(email, password));				
-			}else {
-				emailTF.setText("");
-				passwordPF.setText("");			
-			}
-		});
-		
-		registerBtn.setOnMouseClicked(e -> {
-		   new RegisterPage(stage);
-		  });
+	private void actions(Stage stage) {
+	    loginBtn.setOnMouseClicked(e -> {
+	        String email = emailTF.getText();
+	        String password = passwordPF.getText();
+
+	        String loginResult = UserController.login(email, password);
+
+	        if (loginResult.equals("Success!")) {
+	            User user = UserController.getUserByEmail(email);
+
+	            if (user.getRole().equals("Admin")) {
+	                new AdminDashboardPage(stage);
+	            } else {
+	                System.out.println("Redirecting to user page...");
+	            }
+
+	            emailTF.setText("");
+	            passwordPF.setText("");
+	        } else {
+	            messageLabel.setText(loginResult);
+	        }
+	    });
+
+	    registerBtn.setOnMouseClicked(e -> {
+	        new RegisterPage(stage);
+	    });
 	}
 	
 	public LoginPage(Stage stage) {

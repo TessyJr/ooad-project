@@ -3,7 +3,9 @@ package controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import javafx.collections.ObservableList;
 import main.Connect;
 import model.User;
 
@@ -162,7 +164,7 @@ public class UserController {
         return "Success!";
     }
 	
-    public static String getUser(String email, String password) {
+    public static String login(String email, String password) {
     	String validationError = validateLogin(email, password);
         if (!validationError.equals("Success!")) {
             return validationError;
@@ -171,6 +173,20 @@ public class UserController {
         User.login(email, password);
 
         return "Success!";
+    }
+    
+    public static User getUserByEmail(String email) {
+    	User user = User.getUserByEmail(email);
+    	
+    	return user;
+    }
+    
+    public static ObservableList<User> getAllUsersInRole(String role){
+    	return User.getAllUsersInRole(role);
+    }
+    
+    public static void deleteFan(Integer id) {
+    	User.delete(id);
     }
     
     public UserController() {
