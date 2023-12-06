@@ -47,6 +47,14 @@ public class AdminDashboardPage {
 		fanBtn.setOnMouseClicked(e -> {
 			new AdminFansPage(stage);
 		});
+		
+		vendorBtn.setOnMouseClicked(e -> {
+			new AdminVendorsPage(stage);
+		});
+		
+		influencerBtn.setOnMouseClicked(e -> {
+			new AdminInfluencersPage(stage);
+		});
 	}
 	
 	public AdminDashboardPage(Stage stage) {

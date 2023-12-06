@@ -189,6 +189,14 @@ public class UserController {
     	User.delete(id);
     }
     
+    public static void deleteVendor(Integer id) {
+    	User.delete(id);
+    }
+    
+    public static void deleteInfluencer(Integer id) {
+    	User.delete(id);
+    }
+    
     public UserController() {
 	}
 }
