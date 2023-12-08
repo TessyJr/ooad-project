@@ -142,7 +142,7 @@ public class User {
     }
 	
 	public static void delete(Integer id) {
-		String query = String.format("DELETE FROM users WHERE UserID = %d", id);
+		String query = String.format("ON DELETE CASCADE FROM users WHERE UserID = %d", id);
 	
 	    PreparedStatement ps = con.preparedStatement(query);
 	    try {
@@ -153,8 +153,6 @@ public class User {
 		}
 	}
 	     
-
-	
 	public User(Integer userId, String username, String email, String password, String role) {
 		super();
 		this.userID = userId;

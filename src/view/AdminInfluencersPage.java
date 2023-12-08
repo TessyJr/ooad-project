@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import controller.AdminController;
 import controller.UserController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,9 +111,7 @@ public class AdminInfluencersPage {
 	}
 	
 	private void actions(Stage stage){
-		adminDashboardBtn.setOnMouseClicked(e ->{
-			new AdminDashboardPage(stage);
-		});
+		AdminController.adminDashboardBtnHandle(adminDashboardBtn, stage);
 	}
 	
 	public AdminInfluencersPage(Stage stage) {

@@ -1,5 +1,6 @@
 package view;
 
+import controller.AdminController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,17 +45,9 @@ public class AdminDashboardPage {
 	}
 	
 	private void actions(Stage stage){
-		fanBtn.setOnMouseClicked(e -> {
-			new AdminFansPage(stage);
-		});
-		
-		vendorBtn.setOnMouseClicked(e -> {
-			new AdminVendorsPage(stage);
-		});
-		
-		influencerBtn.setOnMouseClicked(e -> {
-			new AdminInfluencersPage(stage);
-		});
+		AdminController.fanBtnHandle(fanBtn, stage);
+		AdminController.vendorBtnHandle(vendorBtn, stage);
+		AdminController.influencerBtnHandle(influencerBtn, stage);
 	}
 	
 	public AdminDashboardPage(Stage stage) {

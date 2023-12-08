@@ -1,5 +1,6 @@
 package view;
 
+import controller.LoginController;
 import controller.UserController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,11 +21,11 @@ public class LoginPage {
 	BorderPane bp;
 	
 	VBox formContainer;
-	TextField emailTF;
-	PasswordField passwordPF;
+	public static TextField emailTF;
+	public static PasswordField passwordPF;
 	
-	Label titleLabel, emailLabel, passwordLabel, messageLabel;
-	Button loginBtn, registerBtn;
+	public static Label titleLabel, emailLabel, passwordLabel, messageLabel;
+	public static Button loginBtn, registerBtn;
 	
 	private void initialize() {
 		bp = new BorderPane();
@@ -60,31 +61,8 @@ public class LoginPage {
 	}
 	
 	private void actions(Stage stage) {
-	    loginBtn.setOnMouseClicked(e -> {
-	        String email = emailTF.getText();
-	        String password = passwordPF.getText();
-
-	        String loginResult = UserController.login(email, password);
-
-	        if (loginResult.equals("Success!")) {
-	            User user = UserController.getUserByEmail(email);
-
-	            if (user.getRole().equals("Admin")) {
-	                new AdminDashboardPage(stage);
-	            } else {
-	                System.out.println("Redirecting to user page...");
-	            }
-
-	            emailTF.setText("");
-	            passwordPF.setText("");
-	        } else {
-	            messageLabel.setText(loginResult);
-	        }
-	    });
-
-	    registerBtn.setOnMouseClicked(e -> {
-	        new RegisterPage(stage);
-	    });
+	    LoginController.loginHandle(loginBtn, stage);
+	    LoginController.registerHandle(registerBtn, stage);
 	}
 	
 	public LoginPage(Stage stage) {

@@ -19,9 +19,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Connect;
+import model.User;
 
-public class RegisterPage {
+public class InfluencerCreatePanelPage {
 	Connect con;
+	User user;
 	
 	Scene scene;
 	BorderPane bp;
@@ -91,9 +93,10 @@ public class RegisterPage {
 		RegisterController.loginHandle(loginBtn, stage);
 	}
 		
-	public RegisterPage(Stage stage) {
+	public InfluencerCreatePanelPage(Stage stage, User user) {
 		// TODO Auto-generated constructor stub
 		this.con = Connect.getInstance();
+		this.user = user;
 		
 		initialize();
 		setLayout();

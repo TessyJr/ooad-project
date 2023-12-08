@@ -23,13 +23,13 @@ public class Query {
 		        + "    ItemDescription VARCHAR(255) NOT NULL,\r\n"
 		        + "    Price INT NOT NULL,\r\n"
 		        + "    UserID INT NOT NULL,\r\n"
-		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID)\r\n"
+		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON UPDATE CASCADE ON DELETE CASCADE \r\n"
 		        + ");";
 
 		String query3 = "CREATE TABLE IF NOT EXISTS TransactionHeaders (\r\n"
 		        + "    TransactionID INT PRIMARY KEY AUTO_INCREMENT,\r\n"
 		        + "    UserID INT NOT NULL,\r\n"
-		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID)\r\n"
+		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON UPDATE CASCADE ON DELETE CASCADE\r\n"
 		        + ");";
 
 		String query4 = "CREATE TABLE IF NOT EXISTS PanelHeaders (\r\n"
@@ -41,22 +41,22 @@ public class Query {
 		        + "    EndTime TIME NOT NULL,\r\n"
 		        + "    IsFinished BOOLEAN NOT NULL,\r\n"
 		        + "    UserID INT NOT NULL,\r\n"
-		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID)\r\n"
+		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON UPDATE CASCADE ON DELETE CASCADE\r\n"
 		        + ");";
 
 		String query5 = "CREATE TABLE IF NOT EXISTS TransactionDetails(\r\n"
 		        + "    TransactionID INT,\r\n"
 		        + "    ItemID INT,\r\n"
 		        + "    Quantity INT,\r\n"
-		        + "    FOREIGN KEY (TransactionID) REFERENCES TransactionHeaders(TransactionID),\r\n"
-		        + "    FOREIGN KEY (ItemID) REFERENCES Items(ItemID)\r\n"
+		        + "    FOREIGN KEY (TransactionID) REFERENCES TransactionHeaders(TransactionID) ON UPDATE CASCADE ON DELETE CASCADE,\r\n"
+		        + "    FOREIGN KEY (ItemID) REFERENCES Items(ItemID) ON UPDATE CASCADE ON DELETE CASCADE\r\n"
 		        + ");";
 
 		String query6 = "CREATE TABLE IF NOT EXISTS PanelDetails(\r\n"
 		        + "    PanelID INT,\r\n"
 		        + "    UserID INT,\r\n"
-		        + "    FOREIGN KEY (PanelID) REFERENCES PanelHeaders(PanelID),\r\n"
-		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID)\r\n"
+		        + "    FOREIGN KEY (PanelID) REFERENCES PanelHeaders(PanelID) ON UPDATE CASCADE ON DELETE CASCADE,\r\n"
+		        + "    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON UPDATE CASCADE ON DELETE CASCADE\r\n"
 		        + ");";
 		
 		con.execute(query);
