@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +15,9 @@ public class Panel {
 	private static Connect con = Connect.getInstance();
 	private Integer panelID;
 	private Integer userID;
-	private String title, desc, location;
+	private String panelTitle, panelDescription, location;
 	private Boolean isFinished;
-	private Date start, end;
+	private LocalDateTime startTime, endTime;
 
 	public Integer getPanelID() {
 		return panelID;
@@ -25,20 +27,28 @@ public class Panel {
 		this.panelID = panelID;
 	}
 
-	public String getTitle() {
-		return title;
+	public Integer getUserID() {
+		return userID;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setUserID(Integer userID) {
+		this.userID = userID;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getPanelTitle() {
+		return panelTitle;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setPanelTitle(String panelTitle) {
+		this.panelTitle = panelTitle;
+	}
+
+	public String getPanelDescription() {
+		return panelDescription;
+	}
+
+	public void setPanelDescription(String panelDescription) {
+		this.panelDescription = panelDescription;
 	}
 
 	public String getLocation() {
@@ -57,23 +67,35 @@ public class Panel {
 		this.isFinished = isFinished;
 	}
 
-	public Date getStart() {
-		return start;
+	public LocalDateTime getStartTime() {
+		return startTime;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
 	}
 
-	public Date getEnd() {
-		return end;
+	public LocalDateTime getEndTime() {
+		return endTime;
 	}
 
-	public void setEnd(Date end) {
-		this.end = end;
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
+	
+	public static void finishPanel(int panelID) {
+	    String query = "UPDATE PanelHeaders SET IsFinished = 1 WHERE PanelID = ?";
+	    
+	    try (PreparedStatement ps = con.preparedStatement(query)) {
+	        ps.setInt(1, panelID);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // Handle the exception as needed (log, throw, etc.)
+	    }
 	}
 
-	public static void addPanel(String title, String desc, String location, Date start, Date end, Integer userID) {
+	public static void addPanel(String title, String desc, String location, LocalDateTime start, LocalDateTime end, Integer userID) {
 		String query = "INSERT INTO `PanelHeaders`(`PanelTitle`, `PanelDescription`, `Location`, `StartTime`, `EndTime`, `IsFinished`, `UserID`) VALUES (?, ?, ?, ?, ?, false, ?)";
 		
 		PreparedStatement ps = con.preparedStatement(query);
@@ -82,8 +104,8 @@ public class Panel {
 			ps.setString(1, title);
 			ps.setString(2, desc);
 			ps.setString(3, location);
-			ps.setDate(4, start);
-			ps.setDate(5, end);
+			ps.setTimestamp(4, Timestamp.valueOf(start));
+	        ps.setTimestamp(5, Timestamp.valueOf(end));
 			ps.setInt(6, userID);
 			
 			ps.executeUpdate();
@@ -96,45 +118,50 @@ public class Panel {
 	}
 	
 	public static ObservableList<Panel> getAllPanelByInfluencer(Integer id) {
-        ObservableList<Panel> panelList = FXCollections.observableArrayList();;
+	    ObservableList<Panel> panelList = FXCollections.observableArrayList();
 
-        String query = String.format("SELECT * FROM panelheaders WHERE UserID = '%d'", id);
+	    String query = String.format("SELECT * FROM panelheaders WHERE UserID = '%d'", id);
 
-        try (
-        	PreparedStatement ps = con.preparedStatement(query);
-            ResultSet rs = ps.executeQuery()) {
+	    try (PreparedStatement ps = con.preparedStatement(query);
+	         ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                Integer panelId = rs.getInt("PanelID");
-                String title = rs.getString("PanelTitle");
+	        while (rs.next()) {
+	            Integer panelId = rs.getInt("PanelID");
+	            String title = rs.getString("PanelTitle");
 	            String desc = rs.getString("PanelDescription");
 	            String location = rs.getString("Location");
-	            Date startTime = rs.getDate("StartTime");
-	            Date endTime = rs.getDate("EndTime");
+
+	            // Use rs.getTimestamp() to retrieve Timestamp and convert to LocalDateTime
+	            Timestamp startTimestamp = rs.getTimestamp("StartTime");
+	            LocalDateTime startTime = startTimestamp.toLocalDateTime();
+
+	            Timestamp endTimestamp = rs.getTimestamp("EndTime");
+	            LocalDateTime endTime = endTimestamp.toLocalDateTime();
+
 	            Boolean isFinished = rs.getBoolean("IsFinished");
 	            Integer userId = rs.getInt("UserID");
-	            
+
 	            Panel panel = new Panel(panelId, title, desc, location, startTime, endTime, isFinished, userId);
 	            panelList.add(panel);
-            }
+	        }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 
-        return panelList;
-    }
+	    return panelList;
+	}
 
-	public Panel(Integer panelID, String title, String desc, String location, Date start,
-			Date end, Boolean isFinished, Integer userID) {
+	public Panel(Integer panelID, String panelTitle, String panelDescription, String location,
+			LocalDateTime startTime, LocalDateTime endTime, Boolean isFinished, Integer userID) {
 		super();
 		this.panelID = panelID;
-		this.title = title;
-		this.desc = desc;
+		this.panelTitle = panelTitle;
+		this.panelDescription = panelDescription;
 		this.location = location;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.isFinished = isFinished;
-		this.start = start;
-		this.end = end;
 		this.userID = userID;
 	}
 }

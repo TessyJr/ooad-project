@@ -10,6 +10,8 @@ import view.InfluencerCreatePanelPage;
 import view.InfluencerHomePage;
 import view.LoginPage;
 import view.RegisterPage;
+import view.VendorCreateItemPage;
+import view.VendorHomePage;
 
 public class NavigateController {
 	
@@ -44,7 +46,14 @@ public class NavigateController {
 	public static void navigateCreatePanelPage(Stage stage, User user) {
 		new InfluencerCreatePanelPage(stage, user);
 	}
-
+	
+	public static void navigateVendorHomePage(Stage stage, User user) {
+		new VendorHomePage(stage, user);
+	}
+	
+	public static void navigateCreateItemPage(Stage stage, User user) {
+		new VendorCreateItemPage(stage, user);
+	}
 
 	public NavigateController() {
 		// TODO Auto-generated constructor stub

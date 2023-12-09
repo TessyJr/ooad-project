@@ -23,6 +23,8 @@ public class LoginController {
 	                NavigateController.navigateAdminDashbaord(stage);
 	            } else if(user.getRole().equals("Influencer")) {
 	            	NavigateController.navigateInfluencerHomePage(stage, user);
+	            } else if(user.getRole().equals("Vendor")) {
+	            	NavigateController.navigateVendorHomePage(stage, user);
 	            }
 
 	            LoginPage.emailTF.setText("");

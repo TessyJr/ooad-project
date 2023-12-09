@@ -22,15 +22,18 @@ public class RegisterController {
 			String confirmPassword = RegisterPage.confirmPasswordPF.getText();
 			String role = RegisterPage.roleCB.getValue();
 			
+			
+			
 			if(!RegisterPage.messageLabel.getText().equals("Success!")) {
-				RegisterPage.messageLabel.setText(UserController.addUser(username, email, password, confirmPassword, role));				
-				// TAMBAHIN NAVIGATE BERDASARKAN ROLE
-			}else {
-				RegisterPage.usernameTF.setText("");
-				RegisterPage.emailTF.setText("");
-				RegisterPage.passwordPF.setText("");
-				RegisterPage.confirmPasswordPF.setText("");
-				RegisterPage.roleCB.setValue(RegisterPage.roleOL.get(0));				
+				RegisterPage.messageLabel.setText(UserController.addUser(username, email, password, confirmPassword, role));	
+				
+				User user = UserController.getUserByEmail(email);
+				
+				if(role.equals("Influencer")) {
+					NavigateController.navigateInfluencerHomePage(stage, user);
+				}else if(role.equals("Vendor")) {
+					NavigateController.navigateVendorHomePage(stage, user);
+				}
 			}
 		});
 	}
