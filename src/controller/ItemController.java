@@ -7,12 +7,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import main.Connect;
 import model.Item;
 import model.Panel;
 import model.User;
+import view.FanVendorItemsPage;
 import view.InfluencerCreatePanelPage;
 import view.RegisterPage;
 
@@ -74,7 +76,25 @@ public class ItemController {
         return "Success!";
 	}
 	
+	public static void addTransaction(Integer userId, Integer itemId) {
+	    FanVendorItemsPage.buyButton.setOnAction(event -> {
+	        try {
+	            // Retrieve the current value from the quantitySpinner
+	            Integer quantity = FanVendorItemsPage.quantitySpinner.getValue();
 
+	            // Call addTransaction with the retrieved quantity
+	            Item.addTransaction(userId, itemId, quantity);
+	        } catch (NumberFormatException e) {
+	            // Handle invalid quantity input
+	            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+	            errorAlert.setTitle("Error");
+	            errorAlert.setHeaderText(null);
+	            errorAlert.setContentText("Invalid quantity input. Please enter a valid number.");
+	            errorAlert.showAndWait();
+	        }
+	    });
+	}
+	
 	public ItemController() {
 		// TODO Auto-generated constructor stub
 	}

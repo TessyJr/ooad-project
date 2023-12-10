@@ -85,4 +85,20 @@ public class Connect {
 		
 		return ps;
 	}
+	
+	public PreparedStatement transactionPreparedStatement(String query, int returnGeneratedKeys) {
+	    PreparedStatement ps = null;
+
+	    try {
+	        if (returnGeneratedKeys == Statement.RETURN_GENERATED_KEYS) {
+	            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+	        } else {
+	            ps = con.prepareStatement(query);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return ps;
+	}
 }

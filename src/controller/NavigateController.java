@@ -6,6 +6,9 @@ import view.AdminDashboardPage;
 import view.AdminFansPage;
 import view.AdminInfluencersPage;
 import view.AdminVendorsPage;
+import view.FanHomePage;
+import view.FanVendorItemsPage;
+import view.FanVendorPage;
 import view.InfluencerCreatePanelPage;
 import view.InfluencerHomePage;
 import view.LoginPage;
@@ -55,6 +58,18 @@ public class NavigateController {
 		new VendorCreateItemPage(stage, user);
 	}
 
+	public static void navigateFanHomePage(Stage stage, User user) {
+		new FanHomePage(stage, user);
+	}
+	
+	public static void navigateFanVendorPage(Stage stage, User user) {
+		new FanVendorPage(stage, user);
+	}
+	
+	public static void navigateFanVendorItemsPage(Stage stage, User user) {
+		new FanVendorItemsPage(stage, user);
+	}
+	
 	public NavigateController() {
 		// TODO Auto-generated constructor stub
 	}

@@ -25,6 +25,8 @@ public class LoginController {
 	            	NavigateController.navigateInfluencerHomePage(stage, user);
 	            } else if(user.getRole().equals("Vendor")) {
 	            	NavigateController.navigateVendorHomePage(stage, user);
+	            } else if(user.getRole().equals("Fan")) {
+	            	NavigateController.navigateFanHomePage(stage, user);
 	            }
 
 	            LoginPage.emailTF.setText("");

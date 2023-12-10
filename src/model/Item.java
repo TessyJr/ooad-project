@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -129,7 +130,41 @@ public class Item {
             e.printStackTrace();
         }
     }
+	
 
+	public static void addTransaction(Integer userId, Integer itemId, Integer quantity) {
+        String insertHeaderQuery = "INSERT INTO transactionheaders (UserID) VALUES (?)";
+        String insertDetailsQuery = "INSERT INTO transactiondetails (TransactionID, ItemID, Quantity) VALUES (?, ?, ?)";
+
+        try {
+            // Insert into transactionheader to get the generated TransactionID
+            try (PreparedStatement headerPs = con.transactionPreparedStatement(insertHeaderQuery, Statement.RETURN_GENERATED_KEYS)) {
+                headerPs.setInt(1, userId);
+                headerPs.executeUpdate();
+
+                // Retrieve the generated TransactionID
+                ResultSet generatedKeys = headerPs.getGeneratedKeys();
+                int transactionId = -1;
+                if (generatedKeys.next()) {
+                    transactionId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Failed to get generated TransactionID.");
+                }
+
+                // Insert into transactiondetails with the obtained TransactionID
+                try (PreparedStatement detailsPs = con.preparedStatement(insertDetailsQuery)) {
+                    detailsPs.setInt(1, transactionId);
+                    detailsPs.setInt(2, itemId);
+                    detailsPs.setInt(3, quantity);
+                    detailsPs.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
 	public Item(Integer itemID, String itemName, String itemDescription, Integer price, Integer userID) {
 		super();
 		this.itemID = itemID;

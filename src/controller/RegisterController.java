@@ -33,6 +33,8 @@ public class RegisterController {
 					NavigateController.navigateInfluencerHomePage(stage, user);
 				}else if(role.equals("Vendor")) {
 					NavigateController.navigateVendorHomePage(stage, user);
+				}else if(role.equals("Fan")) {
+					NavigateController.navigateFanHomePage(stage, user);
 				}
 			}
 		});

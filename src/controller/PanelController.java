@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import main.Connect;
 import model.Panel;
 import model.User;
+import view.FanHomePage;
 import view.InfluencerCreatePanelPage;
 import view.RegisterPage;
 
@@ -26,9 +27,19 @@ public class PanelController {
     	return Panel.getAllPanelByInfluencer(id);
     }
 	
+	public static ObservableList<Panel> getAllPanels(){
+    	return Panel.getAllPanels();
+    }
+	
 	public static void createNewPanelBtnHandle(Button createNewPanelBtn, Stage stage, User user) {
 		createNewPanelBtn.setOnMouseClicked(e -> {
 			NavigateController.navigateCreatePanelPage(stage, user);
+		});
+	}
+	
+	public static void fanVendorPageBtnHandle(Button fanVendorPageBtn, Stage stage, User user) {
+		fanVendorPageBtn.setOnMouseClicked(e -> {
+			NavigateController.navigateFanVendorPage(stage, user);
 		});
 	}
 	
@@ -82,6 +93,18 @@ public class PanelController {
         Panel.addPanel(title, desc, location, start, end, userID);
 
         return "Success!";
+	}
+	
+	public static void addAttendee(Integer panelId, Integer userId) {
+		FanHomePage.attendBtn.setOnAction(e -> {
+	        Panel.addAttendee(panelId, userId);
+	        FanHomePage.attendBtn.setText("Panel already attended");
+            FanHomePage.attendBtn.setDisable(true);
+	    });
+	}
+	
+	public static boolean hasAttended(Integer panelId, Integer userId) {
+	    return Panel.hasAttended(panelId, userId);
 	}
 
 	public PanelController() {
