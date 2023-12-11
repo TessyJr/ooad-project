@@ -224,6 +224,30 @@ public class Panel {
 
 	    return false;
 	}
+	
+	public static ObservableList<String> getAllAttendees(Integer panelId) {
+	    ObservableList<String> attendeesList = FXCollections.observableArrayList();
+
+	    String query = "SELECT u.Username " +
+	                   "FROM users u " +
+	                   "JOIN paneldetails pd ON u.UserID = pd.UserID " +
+	                   "WHERE pd.PanelID = ?";
+
+	    try (PreparedStatement ps = con.preparedStatement(query)) {
+	        ps.setInt(1, panelId);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                String username = rs.getString("Username");
+	                attendeesList.add(username);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return attendeesList;
+	}
 
 	
 	public Panel(Integer panelID, String panelTitle, String panelDescription, String location,

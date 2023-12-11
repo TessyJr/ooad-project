@@ -62,11 +62,26 @@ public class InfluencerHomePage {
         detailsBox.getChildren().add(new Label("Location: " + panel.getLocation()));
         detailsBox.getChildren().add(new Label("Start Time: " + panel.getStartTime()));
         detailsBox.getChildren().add(new Label("End Time: " + panel.getEndTime()));
-        
+
+        // Add attendees
+        List<String> attendees = PanelController.getAllAttendees(panel.getPanelID());
+        if (!attendees.isEmpty()) {
+            Label attendeesLabel = new Label("Attendees:");
+            attendeesLabel.setStyle("-fx-font-weight: bold;");
+            detailsBox.getChildren().add(attendeesLabel);
+
+            for (String attendee : attendees) {
+                detailsBox.getChildren().add(new Label("- " + attendee));
+            }
+        } else {
+            detailsBox.getChildren().add(new Label("No attendees."));
+        }
+
         alert.getDialogPane().setContent(detailsBox);
 
         alert.showAndWait();
     }
+
     
     private Callback<TableColumn<Panel, Void>, TableCell<Panel, Void>> getButtonCell(Stage stage) {
         return new Callback<TableColumn<Panel, Void>, TableCell<Panel, Void>>() {

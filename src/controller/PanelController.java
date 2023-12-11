@@ -106,6 +106,10 @@ public class PanelController {
 	public static boolean hasAttended(Integer panelId, Integer userId) {
 	    return Panel.hasAttended(panelId, userId);
 	}
+	
+	public static ObservableList<String> getAllAttendees(Integer panelId) {
+	    return Panel.getAllAttendees(panelId);
+	}
 
 	public PanelController() {
 		// TODO Auto-generated constructor stub
