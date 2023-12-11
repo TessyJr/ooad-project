@@ -20,15 +20,12 @@ public class RegisterController {
 			String email = RegisterPage.emailTF.getText();
 			String password = RegisterPage.passwordPF.getText();
 			String confirmPassword = RegisterPage.confirmPasswordPF.getText();
-			String role = RegisterPage.roleCB.getValue();
+			String role = RegisterPage.roleCB.getValue();	
 			
-			
-			
-			if(!RegisterPage.messageLabel.getText().equals("Success!")) {
-				RegisterPage.messageLabel.setText(UserController.addUser(username, email, password, confirmPassword, role));	
-				
+			RegisterPage.messageLabel.setText(UserController.addUser(username, email, password, confirmPassword, role));	
+			if(RegisterPage.messageLabel.getText().equals("Success!")) {				
 				User user = UserController.getUserByEmail(email);
-				
+	
 				if(role.equals("Influencer")) {
 					NavigateController.navigateInfluencerHomePage(stage, user);
 				}else if(role.equals("Vendor")) {
