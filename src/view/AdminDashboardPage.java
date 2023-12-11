@@ -1,6 +1,7 @@
 package view;
 
 import controller.AdminController;
+import controller.UserController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ public class AdminDashboardPage {
 	VBox formContainer;
 
 	Label titleLabel;
-	Button vendorBtn, fanBtn, influencerBtn;
+	Button vendorBtn, fanBtn, influencerBtn, logoutBtn;
 	
 	private void initialize() {
 		bp = new BorderPane();
@@ -32,12 +33,13 @@ public class AdminDashboardPage {
 		vendorBtn = new Button("Go to Vendors");
 		fanBtn = new Button("Go to Fans");
 		influencerBtn = new Button("Go to Influencers");
+		logoutBtn = new Button("Logout");
 		
 		scene = new Scene(bp, 600, 600);
 	}
 	
 	private void setLayout() {
-		formContainer.getChildren().addAll(titleLabel, vendorBtn, fanBtn, influencerBtn);
+		formContainer.getChildren().addAll(titleLabel, vendorBtn, fanBtn, influencerBtn, logoutBtn);
 		formContainer.setMaxWidth(300);
 		formContainer.setAlignment(Pos.CENTER);
 		
@@ -48,6 +50,7 @@ public class AdminDashboardPage {
 		AdminController.fanBtnHandle(fanBtn, stage);
 		AdminController.vendorBtnHandle(vendorBtn, stage);
 		AdminController.influencerBtnHandle(influencerBtn, stage);
+		UserController.logoutBtnHandle(logoutBtn, stage);
 	}
 	
 	public AdminDashboardPage(Stage stage) {

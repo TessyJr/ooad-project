@@ -38,7 +38,7 @@ public class InfluencerHomePage {
     VBox formContainer;
 
     Label titleLabel;
-    Button createNewPanelBtn;
+    Button createNewPanelBtn, logoutBtn;
 
     List<Panel> panelList;
     ObservableList<Panel> observableList;
@@ -173,6 +173,8 @@ public class InfluencerHomePage {
         panelList = PanelController.getAllPanelByInfluencer(user.getUserID()); 
         observableList = FXCollections.observableArrayList(panelList);
         tableView.setItems(observableList);
+        
+        logoutBtn = new Button("Logout");
 		
 		bp = new BorderPane();
 		
@@ -186,7 +188,7 @@ public class InfluencerHomePage {
 	}
 	
 	private void setLayout() {
-		formContainer.getChildren().addAll(titleLabel, tableView, createNewPanelBtn);
+		formContainer.getChildren().addAll(titleLabel, tableView, createNewPanelBtn, logoutBtn);
 		formContainer.setMaxWidth(300);
 		formContainer.setAlignment(Pos.CENTER);
 		
@@ -195,6 +197,7 @@ public class InfluencerHomePage {
 	
 	private void actions(Stage stage, User user){
 		PanelController.createNewPanelBtnHandle(createNewPanelBtn, stage, user);
+		UserController.logoutBtnHandle(logoutBtn, stage);
 	}
 	
 	public InfluencerHomePage(Stage stage, User user) {

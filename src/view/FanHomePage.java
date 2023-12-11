@@ -38,7 +38,7 @@ public class FanHomePage {
     VBox formContainer;
 
     Label titleLabel, subtitleLabel;
-    Button fanVendorPageBtn;
+    Button fanVendorPageBtn, logoutBtn;
     public static Button attendBtn, alreadyAttendedBtn;
 
     List<Panel> panelList;
@@ -136,6 +136,8 @@ public class FanHomePage {
         panelList = PanelController.getAllPanels(); 
         observableList = FXCollections.observableArrayList(panelList);
         tableView.setItems(observableList);
+        
+        logoutBtn = new Button("Logout");
 		
 		bp = new BorderPane();
 		
@@ -150,7 +152,7 @@ public class FanHomePage {
 	}
 	
 	private void setLayout() {
-		formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanVendorPageBtn);
+		formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanVendorPageBtn, logoutBtn);
 		formContainer.setMaxWidth(300);
 		formContainer.setAlignment(Pos.CENTER);
 		
@@ -159,6 +161,7 @@ public class FanHomePage {
 	
 	private void actions(Stage stage, User user){
 		PanelController.fanVendorPageBtnHandle(fanVendorPageBtn, stage, user);
+		UserController.logoutBtnHandle(logoutBtn, stage);
 	}
 	
 	public FanHomePage(Stage stage, User user) {

@@ -41,7 +41,7 @@ public class VendorHomePage {
     VBox formContainer;
 
     Label titleLabel;
-    Button createNewItemBtn;
+    Button createNewItemBtn, logoutBtn;
 
     List<Item> itemList;
     ObservableList<Item> observableList;
@@ -130,6 +130,8 @@ getTableView().getItems().remove(item);
         itemList = ItemController.getAllItemByVendor(user.getUserID());
         observableList = FXCollections.observableArrayList(itemList);
         tableView.setItems(observableList);
+        
+        logoutBtn = new Button("Logout");
 
         bp = new BorderPane();
 
@@ -143,7 +145,7 @@ getTableView().getItems().remove(item);
     }
 	
 	private void setLayout() {
-		formContainer.getChildren().addAll(titleLabel, tableView, createNewItemBtn);
+		formContainer.getChildren().addAll(titleLabel, tableView, createNewItemBtn, logoutBtn);
 		formContainer.setMaxWidth(300);
 		formContainer.setAlignment(Pos.CENTER);
 		
@@ -152,6 +154,7 @@ getTableView().getItems().remove(item);
 	
 	private void actions(Stage stage, User user){
 		ItemController.createNewItemBtnHandle(createNewItemBtn, stage, user);
+		UserController.logoutBtnHandle(logoutBtn, stage);
 	}
 	
 	public VendorHomePage(Stage stage, User user) {
