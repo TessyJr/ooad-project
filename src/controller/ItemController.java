@@ -35,6 +35,18 @@ public class ItemController {
 		});
 	}
 	
+	public static void homePageBtnHandle(Button createNewItemBtn, Stage stage, User user) {
+		createNewItemBtn.setOnMouseClicked(e -> {
+			NavigateController.navigateFanHomePage(stage, user);
+		});
+	}
+	
+	public static void fanTransactionHistoryPageBtnHandle(Button createNewItemBtn, Stage stage, User user) {
+		createNewItemBtn.setOnMouseClicked(e -> {
+			NavigateController.navigateFanTransactionHistoryPage(stage, user);
+		});
+	}
+	
 	public static String validateItemAttributes(String itemName, String itemDescription, double price) {
         if (itemName == null || itemName.isEmpty()) {
             return "Item Name must be filled.";
@@ -64,6 +76,11 @@ public class ItemController {
 
         return "Success!";
 	}
+	
+	public static ObservableList<String> getTransactionByFan(Integer userId) {
+	    return Item.getTransactionByFan(userId);
+	}
+
 	
 	public static String updateItem(Integer itemId, String name, String desc, Integer price) {
 		String validationError = validateItemAttributes(name, desc, price);

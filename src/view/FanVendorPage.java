@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import controller.AdminController;
+import controller.ItemController;
 import controller.NavigateController;
 import controller.UserController;
 import javafx.collections.FXCollections;
@@ -33,7 +34,7 @@ public class FanVendorPage {
 	VBox formContainer;
 
 	Label titleLabel, subtitleLabel;
-	Button fanHomePageBtn, deleteBtn;
+	Button fanHomePageBtn, deleteBtn, fanTransactionHistoryPageBtn;
 	
 	List<User> vendorList;
 	ObservableList<User> observableList;
@@ -94,12 +95,13 @@ public class FanVendorPage {
 		subtitleLabel = new Label("VENDOR LIST");
 
 		fanHomePageBtn = new Button("Go Fan Home Page");
+		fanTransactionHistoryPageBtn = new Button("Go Fan Transaction History");
 		
 		scene = new Scene(bp, 600, 600);
 	}
 	
 	private void setLayout() {
-		formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanHomePageBtn);
+		formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanHomePageBtn, fanTransactionHistoryPageBtn);
 		formContainer.setMaxWidth(300);
 		formContainer.setAlignment(Pos.CENTER);
 		
@@ -107,7 +109,8 @@ public class FanVendorPage {
 	}
 	
 	private void actions(Stage stage){
-//		AdminController.adminDashboardBtnHandle(adminDashboardBtn, stage);
+		ItemController.homePageBtnHandle(fanHomePageBtn, stage, user);
+		ItemController.fanTransactionHistoryPageBtnHandle(fanTransactionHistoryPageBtn, stage, user);
 	}
 	
 	public FanVendorPage(Stage stage, User user) {

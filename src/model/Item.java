@@ -164,6 +164,39 @@ public class Item {
         }
     }
 	
+	public static ObservableList<String> getTransactionByFan(Integer userId) {
+	    ObservableList<String> transactionHistory = FXCollections.observableArrayList();
+
+	    String query = "SELECT i.ItemName, i.Price, td.Quantity " +
+	            "FROM TransactionHeaders th " +
+	            "JOIN TransactionDetails td ON th.TransactionID = td.TransactionID " +
+	            "JOIN Items i ON td.ItemID = i.ItemID " +
+	            "WHERE th.UserID = ?";
+
+	    try (PreparedStatement ps = con.preparedStatement(query)) {
+	        ps.setInt(1, userId);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                String itemName = rs.getString("ItemName");
+	                int price = rs.getInt("Price");
+	                int quantity = rs.getInt("Quantity");
+
+	                // Format the transaction details
+	                String transactionDetails = String.format("%s – %d – %d", itemName, price, quantity);
+
+	                // Add to the ObservableList
+	                transactionHistory.add(transactionDetails);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return transactionHistory;
+	}
+
+	
 	
 	public Item(Integer itemID, String itemName, String itemDescription, Integer price, Integer userID) {
 		super();

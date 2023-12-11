@@ -7,6 +7,7 @@ import view.AdminFansPage;
 import view.AdminInfluencersPage;
 import view.AdminVendorsPage;
 import view.FanHomePage;
+import view.FanTransactionHistoryPage;
 import view.FanVendorItemsPage;
 import view.FanVendorPage;
 import view.InfluencerCreatePanelPage;
@@ -68,6 +69,10 @@ public class NavigateController {
 	
 	public static void navigateFanVendorItemsPage(Stage stage, User user) {
 		new FanVendorItemsPage(stage, user);
+	}
+	
+	public static void navigateFanTransactionHistoryPage(Stage stage, User user) {
+		new FanTransactionHistoryPage(stage, user);
 	}
 	
 	public NavigateController() {
