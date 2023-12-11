@@ -133,7 +133,7 @@ public class FanHomePage {
 
         tableView.getColumns().addAll(panelIdColumn, titleColumn, isFinishedColumn, viewColumn);
 
-        panelList = PanelController.getAllPanels(); 
+        panelList = PanelController.getAllPanels();
         observableList = FXCollections.observableArrayList(panelList);
         tableView.setItems(observableList);
         

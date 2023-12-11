@@ -61,7 +61,7 @@ public class FanVendorPage {
                     viewItemsBtn.setOnAction((ActionEvent event) -> {
                         User vendor = getTableView().getItems().get(getIndex());
                         
-                        NavigateController.navigateFanVendorItemsPage(stage, vendor);
+                        NavigateController.navigateFanVendorItemsPage(stage, vendor, user);
                     });
                 }
 
@@ -94,8 +94,8 @@ public class FanVendorPage {
 		titleLabel = new Label("FAN PAGE");
 		subtitleLabel = new Label("VENDOR LIST");
 
-		fanHomePageBtn = new Button("Go Fan Home Page");
-		fanTransactionHistoryPageBtn = new Button("Go Fan Transaction History");
+		fanHomePageBtn = new Button("Go to Fan Home Page");
+		fanTransactionHistoryPageBtn = new Button("Go to Transaction History");
 		
 		scene = new Scene(bp, 600, 600);
 	}
@@ -117,7 +117,7 @@ public class FanVendorPage {
 		// TODO Auto-generated constructor stub
 		this.con = Connect.getInstance();
 		this.user = user;
-		
+	
 		initialize(stage);
 		setLayout();
 		actions(stage);

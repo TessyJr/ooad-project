@@ -129,74 +129,7 @@ public class Item {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-	
-
-	public static void addTransaction(Integer userId, Integer itemId, Integer quantity) {
-        String insertHeaderQuery = "INSERT INTO transactionheaders (UserID) VALUES (?)";
-        String insertDetailsQuery = "INSERT INTO transactiondetails (TransactionID, ItemID, Quantity) VALUES (?, ?, ?)";
-
-        try {
-            // Insert into transactionheader to get the generated TransactionID
-            try (PreparedStatement headerPs = con.transactionPreparedStatement(insertHeaderQuery, Statement.RETURN_GENERATED_KEYS)) {
-                headerPs.setInt(1, userId);
-                headerPs.executeUpdate();
-
-                // Retrieve the generated TransactionID
-                ResultSet generatedKeys = headerPs.getGeneratedKeys();
-                int transactionId = -1;
-                if (generatedKeys.next()) {
-                    transactionId = generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("Failed to get generated TransactionID.");
-                }
-
-                // Insert into transactiondetails with the obtained TransactionID
-                try (PreparedStatement detailsPs = con.preparedStatement(insertDetailsQuery)) {
-                    detailsPs.setInt(1, transactionId);
-                    detailsPs.setInt(2, itemId);
-                    detailsPs.setInt(3, quantity);
-                    detailsPs.executeUpdate();
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-	
-	public static ObservableList<String> getTransactionByFan(Integer userId) {
-	    ObservableList<String> transactionHistory = FXCollections.observableArrayList();
-
-	    String query = "SELECT i.ItemName, i.Price, td.Quantity " +
-	            "FROM TransactionHeaders th " +
-	            "JOIN TransactionDetails td ON th.TransactionID = td.TransactionID " +
-	            "JOIN Items i ON td.ItemID = i.ItemID " +
-	            "WHERE th.UserID = ?";
-
-	    try (PreparedStatement ps = con.preparedStatement(query)) {
-	        ps.setInt(1, userId);
-
-	        try (ResultSet rs = ps.executeQuery()) {
-	            while (rs.next()) {
-	                String itemName = rs.getString("ItemName");
-	                int price = rs.getInt("Price");
-	                int quantity = rs.getInt("Quantity");
-
-	                // Format the transaction details
-	                String transactionDetails = String.format("%s – %d – %d", itemName, price, quantity);
-
-	                // Add to the ObservableList
-	                transactionHistory.add(transactionDetails);
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-
-	    return transactionHistory;
-	}
-
-	
+    }	
 	
 	public Item(Integer itemID, String itemName, String itemDescription, Integer price, Integer userID) {
 		super();

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import main.Connect;
 import model.Item;
 import model.Panel;
+import model.Transaction;
 import model.User;
 import view.FanVendorItemsPage;
 import view.InfluencerCreatePanelPage;
@@ -77,11 +78,6 @@ public class ItemController {
         return "Success!";
 	}
 	
-	public static ObservableList<String> getTransactionByFan(Integer userId) {
-	    return Item.getTransactionByFan(userId);
-	}
-
-	
 	public static String updateItem(Integer itemId, String name, String desc, Integer price) {
 		String validationError = validateItemAttributes(name, desc, price);
         if (!validationError.equals("Success!")) {
@@ -91,25 +87,6 @@ public class ItemController {
         Item.updateItem(itemId, name, desc, price);
 
         return "Success!";
-	}
-	
-	public static void addTransaction(Integer userId, Integer itemId) {
-	    FanVendorItemsPage.buyButton.setOnAction(event -> {
-	        try {
-	            // Retrieve the current value from the quantitySpinner
-	            Integer quantity = FanVendorItemsPage.quantitySpinner.getValue();
-
-	            // Call addTransaction with the retrieved quantity
-	            Item.addTransaction(userId, itemId, quantity);
-	        } catch (NumberFormatException e) {
-	            // Handle invalid quantity input
-	            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-	            errorAlert.setTitle("Error");
-	            errorAlert.setHeaderText(null);
-	            errorAlert.setContentText("Invalid quantity input. Please enter a valid number.");
-	            errorAlert.showAndWait();
-	        }
-	    });
 	}
 	
 	public ItemController() {

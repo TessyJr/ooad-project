@@ -3,6 +3,8 @@ package view;
 import java.util.List;
 
 import controller.ItemController;
+import controller.PanelController;
+import controller.TransactionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -28,17 +30,18 @@ import model.User;
 
 public class FanVendorItemsPage {
     Connect con;
-    User user;
+    User vendor, user;
 
     Scene scene;
     BorderPane bp;
 
     VBox formContainer;
 
-    Label titleLabel;
-    Button createNewItemBtn;
+    Label titleLabel, subtitleLabel;
     public static Button buyButton;
     public static Spinner<Integer> quantitySpinner;
+    
+    Button fanVendorPageBtn;
 
     List<Item> itemList;
     ObservableList<Item> observableList;
@@ -60,7 +63,7 @@ public class FanVendorItemsPage {
 
         tableView.getColumns().addAll(itemIdColumn, nameColumn, viewColumn);
 
-        itemList = ItemController.getAllItemByVendor(user.getUserID());
+        itemList = ItemController.getAllItemByVendor(vendor.getUserID());
         observableList = FXCollections.observableArrayList(itemList);
         tableView.setItems(observableList);
 
@@ -68,15 +71,16 @@ public class FanVendorItemsPage {
 
         formContainer = new VBox();
 
-        titleLabel = new Label("VENDOR HOME PAGE");
-
-        createNewItemBtn = new Button("Create New Item");
-
+        titleLabel = new Label("FAN PAGE");
+        subtitleLabel = new Label("VENDOR ITEM LIST");
+        
+        fanVendorPageBtn = new Button("Go to Vendor List");
+        
         scene = new Scene(bp, 600, 600);
     }
 
     private void setLayout() {
-        formContainer.getChildren().addAll(titleLabel, tableView, createNewItemBtn);
+        formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanVendorPageBtn);
         formContainer.setMaxWidth(300);
         formContainer.setAlignment(Pos.CENTER);
 
@@ -84,11 +88,12 @@ public class FanVendorItemsPage {
     }
 
     private void actions(Stage stage, User user) {
-        ItemController.createNewItemBtnHandle(createNewItemBtn, stage, user);
+    	PanelController.fanVendorPageBtnHandle(fanVendorPageBtn, stage, user);
     }
 
-    public FanVendorItemsPage(Stage stage, User user) {
+    public FanVendorItemsPage(Stage stage, User vendor, User user) {
         this.con = Connect.getInstance();
+        this.vendor = vendor;
         this.user = user;
 
         initialize(stage);
@@ -145,7 +150,7 @@ public class FanVendorItemsPage {
 	
 	    // Buy button
 	    buyButton = new Button("Buy");
-	    ItemController.addTransaction(user.getUserID(), item.getItemID());
+	    TransactionController.addTransaction(user.getUserID(), item.getItemID());
 	    
 	    // Add controls to the details box
 	    detailsBox.getChildren().addAll(nameLabel, descLabel, priceLabel, quantitySpinner, buyButton);

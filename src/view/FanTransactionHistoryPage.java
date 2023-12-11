@@ -3,6 +3,8 @@ package view;
 import java.util.List;
 
 import controller.ItemController;
+import controller.PanelController;
+import controller.TransactionController;
 import controller.UserController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Connect;
 import model.Item;
+import model.Transaction;
 import model.User;
 
 public class FanTransactionHistoryPage {
@@ -30,15 +33,15 @@ public class FanTransactionHistoryPage {
     VBox formContainer;
 
     Label titleLabel, subtitleLabel;
-    Button fanHomePageBtn, deleteBtn;
+    Button fanVendorPageBtn, deleteBtn;
 
-    List<String> transactionList;
-    ObservableList<String> observableList;
+    List<Transaction> transactionList;
+    ObservableList<Transaction> observableList;
 
-    TableView<String> tableView;
-    TableColumn<String, String> itemNameColumn;
-    TableColumn<String, Integer> priceColumn;
-    TableColumn<String, Integer> quantityColumn;
+    TableView<Transaction> tableView;
+    TableColumn<Transaction, String> itemNameColumn;
+    TableColumn<Transaction, Integer> priceColumn;
+    TableColumn<Transaction, Integer> quantityColumn;
 
     private void initialize(Stage stage) {
         tableView = new TableView<>();
@@ -53,7 +56,7 @@ public class FanTransactionHistoryPage {
         tableView.getColumns().addAll(itemNameColumn, priceColumn, quantityColumn);
 
         // Fetch the transaction history for the user
-        transactionList = ItemController.getTransactionByFan(user.getUserID());
+        transactionList = TransactionController.getTransactionByFan(user.getUserID());
         observableList = FXCollections.observableArrayList(transactionList);
         tableView.setItems(observableList);
 
@@ -62,15 +65,15 @@ public class FanTransactionHistoryPage {
         formContainer = new VBox();
 
         titleLabel = new Label("FAN PAGE");
-        subtitleLabel = new Label("VIEW TRANSACTION HISTORY");
+        subtitleLabel = new Label("TRANSACTION HISTORY");
 
-        fanHomePageBtn = new Button("Go Fan Home Page");
+        fanVendorPageBtn = new Button("Go to Vendor List");
 
         scene = new Scene(bp, 600, 600);
     }
 
     private void setLayout() {
-        formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanHomePageBtn);
+        formContainer.getChildren().addAll(titleLabel, subtitleLabel, tableView, fanVendorPageBtn);
         formContainer.setMaxWidth(300);
         formContainer.setAlignment(Pos.CENTER);
 
@@ -78,7 +81,7 @@ public class FanTransactionHistoryPage {
     }
 
     private void actions(Stage stage) {
-        ItemController.homePageBtnHandle(fanHomePageBtn, stage, user);
+    	PanelController.fanVendorPageBtnHandle(fanVendorPageBtn, stage, user);
     }
 
     public FanTransactionHistoryPage(Stage stage, User user) {

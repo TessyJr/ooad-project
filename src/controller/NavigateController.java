@@ -67,8 +67,8 @@ public class NavigateController {
 		new FanVendorPage(stage, user);
 	}
 	
-	public static void navigateFanVendorItemsPage(Stage stage, User user) {
-		new FanVendorItemsPage(stage, user);
+	public static void navigateFanVendorItemsPage(Stage stage, User vendor, User user) {
+		new FanVendorItemsPage(stage, vendor, user);
 	}
 	
 	public static void navigateFanTransactionHistoryPage(Stage stage, User user) {
