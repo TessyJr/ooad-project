@@ -55,7 +55,6 @@ public class FanTransactionHistoryPage {
 
         tableView.getColumns().addAll(itemNameColumn, priceColumn, quantityColumn);
 
-        // Fetch the transaction history for the user
         transactionList = TransactionController.getTransactionByFan(user.getUserID());
         observableList = FXCollections.observableArrayList(transactionList);
         tableView.setItems(observableList);

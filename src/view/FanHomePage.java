@@ -63,13 +63,11 @@ public class FanHomePage {
 	    detailsBox.getChildren().add(new Label("Start Time: " + panel.getStartTime()));
 	    detailsBox.getChildren().add(new Label("End Time: " + panel.getEndTime()));
 	
-	    // Check if the user has already attended the panel
 	    if (Panel.hasAttended(panel.getPanelID(), user.getUserID())) {
 	        alreadyAttendedBtn = new Button("Panel already attended");
 	        detailsBox.getChildren().add(alreadyAttendedBtn);
 	        alreadyAttendedBtn.setDisable(true);
 	    } else {
-	        // User has not attended, show the Attend button
 	        attendBtn = new Button("Attend");
 	        PanelController.addAttendee(panel.getPanelID(), user.getUserID());
 	        

@@ -50,7 +50,6 @@ public class Transaction {
                 headerPs.setInt(1, userId);
                 headerPs.executeUpdate();
 
-                // Retrieve the generated TransactionID
                 ResultSet generatedKeys = headerPs.getGeneratedKeys();
                 int transactionId = -1;
                 if (generatedKeys.next()) {
@@ -59,7 +58,6 @@ public class Transaction {
                     throw new SQLException("Failed to get generated TransactionID.");
                 }
 
-                // Insert into transactiondetails with the obtained TransactionID
                 try (PreparedStatement detailsPs = con.preparedStatement(insertDetailsQuery)) {
                     detailsPs.setInt(1, transactionId);
                     detailsPs.setInt(2, itemId);
@@ -89,10 +87,8 @@ public class Transaction {
 	                int price = rs.getInt("Price");
 	                int quantity = rs.getInt("Quantity");
 
-	                // Format the transaction details
 	                Transaction transaction = new Transaction(itemName, price, quantity);
 
-	                // Add to the ObservableList
 	                transactionHistory.add(transaction);
 	            }
 	        }

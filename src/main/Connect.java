@@ -10,13 +10,10 @@ import java.sql.Statement;
 public class Connect {
 	private static Connect instance;
 	
-	// Connection -> menyimpan koneksi dengan mySQL
 	private Connection con;
 	
-	// Staement -> Menjalankan query
 	private Statement st;
 
-	// username, password, nama database, host
 	private final String USERNAME = "root";
 	private final String PASSWORD = "";
 	private final String HOST = "localhost:3306";

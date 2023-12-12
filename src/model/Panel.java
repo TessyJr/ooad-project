@@ -92,7 +92,6 @@ public class Panel {
 	        ps.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        // Handle the exception as needed (log, throw, etc.)
 	    }
 	}
 
@@ -132,7 +131,6 @@ public class Panel {
 	            String desc = rs.getString("PanelDescription");
 	            String location = rs.getString("Location");
 
-	            // Use rs.getTimestamp() to retrieve Timestamp and convert to LocalDateTime
 	            Timestamp startTimestamp = rs.getTimestamp("StartTime");
 	            LocalDateTime startTime = startTimestamp.toLocalDateTime();
 

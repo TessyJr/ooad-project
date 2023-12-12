@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.stage.Stage;
+import model.Item;
 import model.User;
 import view.AdminDashboardPage;
 import view.AdminFansPage;
@@ -16,6 +17,7 @@ import view.LoginPage;
 import view.RegisterPage;
 import view.VendorCreateItemPage;
 import view.VendorHomePage;
+import view.VendorUpdateItemPage;
 
 public class NavigateController {
 	
@@ -57,6 +59,9 @@ public class NavigateController {
 	
 	public static void navigateCreateItemPage(Stage stage, User user) {
 		new VendorCreateItemPage(stage, user);
+	}
+	public static void navigateUpdateItemPage(Stage stage, Item item,  User user) {
+		new VendorUpdateItemPage(stage,item,  user);
 	}
 
 	public static void navigateFanHomePage(Stage stage, User user) {

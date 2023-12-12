@@ -36,6 +36,12 @@ public class ItemController {
 		});
 	}
 	
+	public static void updateItemBtnHandle(Button updateButton,  Stage stage,Item item, User user) {
+		updateButton.setOnMouseClicked(e -> {
+			NavigateController.navigateUpdateItemPage( stage,item, user);
+		});
+	}
+	
 	public static void homePageBtnHandle(Button createNewItemBtn, Stage stage, User user) {
 		createNewItemBtn.setOnMouseClicked(e -> {
 			NavigateController.navigateFanHomePage(stage, user);

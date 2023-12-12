@@ -35,9 +35,10 @@ public class FanVendorItemsPage {
     Scene scene;
     BorderPane bp;
 
-    VBox formContainer;
-
+    public static VBox formContainer, detailsbox;
+    
     Label titleLabel, subtitleLabel;
+    public static Label messageLabel;
     public static Button buyButton;
     public static Spinner<Integer> quantitySpinner;
     
@@ -133,32 +134,25 @@ public class FanVendorItemsPage {
     }
 
 	private void showItemDetailsPopup(Stage stage, Item item) {
-	    // Create the details popup
+
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.initModality(Modality.APPLICATION_MODAL);
-//	    alert.initModality(Modality.WINDOW_MODAL);
 	    alert.initOwner(stage);
 	    alert.setTitle("Item Details");
 	
-	    // Create JavaFX controls for item details
-	    VBox detailsBox = new VBox();
+	    detailsbox = new VBox();
 	    Label nameLabel = new Label("Name: " + item.getItemName());
 	    Label descLabel = new Label("Description: " + item.getItemDescription());
 	    Label priceLabel = new Label("Price: " + item.getPrice());
 	
 	    quantitySpinner = new Spinner<>(0, Integer.MAX_VALUE, 1);
 	
-	    // Buy button
 	    buyButton = new Button("Buy");
 	    TransactionController.addTransaction(user.getUserID(), item.getItemID());
 	    
-	    // Add controls to the details box
-	    detailsBox.getChildren().addAll(nameLabel, descLabel, priceLabel, quantitySpinner, buyButton);
-	
-	    // Set the content of the alert
-	    alert.getDialogPane().setContent(detailsBox);
-	
-	    // Show the popup
+	    
+	    detailsbox.getChildren().addAll(nameLabel, descLabel, priceLabel, quantitySpinner, buyButton);
+	    alert.getDialogPane().setContent(detailsbox);
 	    alert.showAndWait();
 	}
 }

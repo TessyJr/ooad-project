@@ -105,7 +105,7 @@ public class Item {
 	}
 	
 	public static void DeleteItem(Integer id) {
-		  String query = String.format("DELETE  FROM Items WHERE UserID = %d", id);
+		  String query = String.format("DELETE  FROM Items WHERE ItemID = %d", id);
 		 
 		     PreparedStatement ps = con.preparedStatement(query);
 		     try {

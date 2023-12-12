@@ -63,7 +63,6 @@ public class InfluencerHomePage {
         detailsBox.getChildren().add(new Label("Start Time: " + panel.getStartTime()));
         detailsBox.getChildren().add(new Label("End Time: " + panel.getEndTime()));
 
-        // Add attendees
         List<String> attendees = PanelController.getAllAttendees(panel.getPanelID());
         if (!attendees.isEmpty()) {
             Label attendeesLabel = new Label("Attendees:");
@@ -139,10 +138,8 @@ public class InfluencerHomePage {
                         } else {
                             Panel panel = getTableView().getItems().get(getIndex());
                             if (panel.getIsFinished()) {
-                                // Panel is finished, hide the button
                                 setGraphic(null);
                             } else {
-                                // Panel is not finished, show the button
                                 setGraphic(finishedButton);
                             }
                         }

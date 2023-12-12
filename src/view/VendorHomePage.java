@@ -42,7 +42,8 @@ public class VendorHomePage {
 
     Label titleLabel;
     Button createNewItemBtn, logoutBtn;
-
+    
+    
     List<Item> itemList;
     ObservableList<Item> observableList;
 
@@ -59,13 +60,12 @@ public class VendorHomePage {
             @Override
             public TableCell<Item, Void> call(final TableColumn<Item, Void> param) {
                 return new TableCell<Item, Void>() {
-
-                    private final Button updateButton = new Button("Update");
-
+                	
+                	private final Button updateButton = new Button("Update");
                     {
                         updateButton.setOnAction((ActionEvent event) -> {
                             Item item = getTableView().getItems().get(getIndex());
-                            new VendorUpdateItemPage(stage, item, user);
+                            ItemController.updateItemBtnHandle(updateButton, stage, item, user);
                         });
                     }
 
@@ -99,6 +99,7 @@ public class VendorHomePage {
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
         updateColumn.setCellFactory(getUpdateButtonCell(stage));
+
         deleteColumn.setCellFactory(column -> {
             return new TableCell<Item, Button>() {
                 private final Button deleteButton = new Button("Delete");

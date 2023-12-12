@@ -108,7 +108,6 @@ public class User {
 	            return null;
 	        }
 	    } catch (SQLException e) {
-	        // Handle any SQL exception
 	        e.printStackTrace();
 	    }
 
@@ -142,7 +141,7 @@ public class User {
     }
 	
 	public static void delete(Integer id) {
-		String query = String.format("ON DELETE CASCADE FROM users WHERE UserID = %d", id);
+		String query = String.format("DELETE FROM users WHERE UserID = %d", id);
 	
 	    PreparedStatement ps = con.preparedStatement(query);
 	    try {

@@ -48,7 +48,7 @@ public class VendorCreateItemPage {
 		formContainer = new VBox();
 		
 		// Labels
-		titleLabel = new Label("CREATE PANEL PAGE");
+		titleLabel = new Label("CREATE ITEM PAGE");
         nameLabel = new Label("Name:");
         descLabel = new Label("Description:");
         priceLabel = new Label("Price:");

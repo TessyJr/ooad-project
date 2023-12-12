@@ -59,24 +59,20 @@ public class PanelController {
 	        return "Location must have at least 2 words.";
 	    }
 
-	    // Start Time and End Time not null validation
 	    if (start == null || end == null) {
 	        return "Start Time and End Time cannot be null.";
 	    }
 
-	    // Start Time validation
 	    LocalTime startHourOfDay = start.toLocalTime();
 	    if (startHourOfDay.isBefore(LocalTime.of(9, 0)) || startHourOfDay.isAfter(LocalTime.of(21, 0))) {
 	        return "Start Time must be between 09:00 and 21:00.";
 	    }
 
-	    // End Time validation
 	    LocalTime endHourOfDay = end.toLocalTime();
 	    if (endHourOfDay.isBefore(LocalTime.of(9, 0)) || endHourOfDay.isAfter(LocalTime.of(23, 0))) {
 	        return "End Time must be between 09:00 and 23:00.";
 	    }
 
-	    // Must be above Start Time validation
 	    if (end.isBefore(start)) {
 	        return "End Time must be after Start Time.";
 	    }

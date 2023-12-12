@@ -39,10 +39,7 @@ public class InfluencerCreatePanelPage {
 	
 	public static Label titleLabel, panelTitleLabel, descLabel, locationLabel, startTimeLabel, endTimeLabel, messageLabel;
 
-     // Create a Spinner for selecting hour
      public static Spinner<Integer> startHourSpinner, endHourSpinner;
-
-     // Create a Spinner for selecting minute
      public static Spinner<Integer> startMinuteSpinner, endMinuteSpinner;
 	
 	public static Button createPanelBtn, influencerHomeBtn;
