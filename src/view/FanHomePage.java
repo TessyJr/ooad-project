@@ -50,6 +50,7 @@ public class FanHomePage {
     TableColumn<Panel, Boolean> isFinishedColumn;
     TableColumn<Panel, Void> viewColumn;
     
+//    function untuk memunculkan modal pop up
 	private void showPanelDetailsPopup(Stage stage, Panel panel) {
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.initModality(Modality.APPLICATION_MODAL);

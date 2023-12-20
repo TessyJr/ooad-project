@@ -54,6 +54,7 @@ public class ItemController {
 		});
 	}
 	
+//	function berisi validasi dari atribut item
 	public static String validateItemAttributes(String itemName, String itemDescription, double price) {
         if (itemName == null || itemName.isEmpty()) {
             return "Item Name must be filled.";
@@ -73,6 +74,7 @@ public class ItemController {
         return "Success!";
     }
 
+//	function untuk menambahkan item dengan memanggil function validasi item sesuai dengan atributnya
 	public static String addItem(String name, String desc, Integer price, Integer userID) {
 		String validationError = validateItemAttributes(name, desc, price);
         if (!validationError.equals("Success!")) {
@@ -84,6 +86,7 @@ public class ItemController {
         return "Success!";
 	}
 	
+//	function untuk update item beserta functino validasi item
 	public static String updateItem(Integer itemId, String name, String desc, Integer price) {
 		String validationError = validateItemAttributes(name, desc, price);
         if (!validationError.equals("Success!")) {

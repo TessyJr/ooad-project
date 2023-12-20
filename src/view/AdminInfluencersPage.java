@@ -56,6 +56,7 @@ public class AdminInfluencersPage {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("Password"));
         
+//        kolom delete user
         deleteColumn.setCellFactory(column -> {
             return new TableCell<User, Button>() {
                 private final Button deleteButton = new Button("Delete");

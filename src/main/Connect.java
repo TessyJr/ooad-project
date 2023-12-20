@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connect {
+//	class ini untuk menghubungkan ke dalam database (XAMPP)
 	private static Connect instance;
 	
 	private Connection con;

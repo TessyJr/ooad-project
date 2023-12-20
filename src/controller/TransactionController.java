@@ -9,10 +9,12 @@ import model.Transaction;
 import view.FanVendorItemsPage;
 
 public class TransactionController {
+//	function untuk mendapatkan transaksi sesuai dengan fan
 	public static ObservableList<Transaction> getTransactionByFan(Integer userId) {
 	    return Transaction.getTransactionByFan(userId);
 	}
 	
+//	function untuk dapat menambahkan transaksi sesuai dengan quantity yang diinput fan
 	public static void addTransaction(Integer userId, Integer itemId) {
 	    FanVendorItemsPage.buyButton.setOnAction(event -> {
 	        try {

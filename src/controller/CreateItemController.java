@@ -21,6 +21,7 @@ public class CreateItemController {
 		});
 	}
 	
+//	function untuk menambahkan item
 	public static void createItemBtnHandle(Button createItemBtn, Stage stage, User user
 			) {
 		createItemBtn.setOnMouseClicked(e -> {

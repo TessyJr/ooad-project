@@ -43,6 +43,7 @@ public class PanelController {
 		});
 	}
 	
+//	function untuk mereturn validasi error pada atribut panel
 	private static String validatePanelAttributes(String title, String desc, String location, LocalDateTime start, LocalDateTime end) {
 	    if (title.isEmpty()) {
 	        return "Panel Title must be filled.";
@@ -80,6 +81,7 @@ public class PanelController {
 	    return "Success!";
 	}
 	
+//	function untuk memanggil validasi panel saat create panel
 	public static String addPanel(String title, String desc, String location, LocalDateTime start, LocalDateTime end, Integer userID) {
 		String validationError = validatePanelAttributes(title, desc, location, start, end);
         if (!validationError.equals("Success!")) {
@@ -91,9 +93,11 @@ public class PanelController {
         return "Success!";
 	}
 	
+//	function untuk fan dapat attend panel yang tersedia
 	public static void addAttendee(Integer panelId, Integer userId) {
 		FanHomePage.attendBtn.setOnAction(e -> {
 	        Panel.addAttendee(panelId, userId);
+//	        setelah di klik maka button akan berubah
 	        FanHomePage.attendBtn.setText("Panel already attended");
             FanHomePage.attendBtn.setDisable(true);
 	    });

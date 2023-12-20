@@ -9,6 +9,7 @@ import view.VendorUpdateItemPage;
 
 public class UpdateItemController {
 	
+//	function untuk mengaupdate item pada vendor berdasarkan atribut yang diubah
 	public static void updateItemBtnHandle(Button updateItemBtn, Item item, Stage stage, User user) {
 		updateItemBtn.setOnMouseClicked(e -> {
 			Integer itemId = item.getItemID();

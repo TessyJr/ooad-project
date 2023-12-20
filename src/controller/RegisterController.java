@@ -13,7 +13,7 @@ public class RegisterController {
 			   NavigateController.navigateLogin(stage);
 			  });
 	}
-	
+//	function untuk register user
 	public static void registerHandle(Button registerBtn, Stage stage) {
 		registerBtn.setOnMouseClicked(e -> {	
 			String username = RegisterPage.usernameTF.getText();
@@ -25,7 +25,8 @@ public class RegisterController {
 			RegisterPage.messageLabel.setText(UserController.addUser(username, email, password, confirmPassword, role));	
 			if(RegisterPage.messageLabel.getText().equals("Success!")) {				
 				User user = UserController.getUserByEmail(email);
-	
+				
+//				validasi page sesuai dengan role
 				if(role.equals("Influencer")) {
 					NavigateController.navigateInfluencerHomePage(stage, user);
 				}else if(role.equals("Vendor")) {

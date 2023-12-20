@@ -6,6 +6,7 @@ import model.User;
 
 public class AdminController {
 	
+//	menavigasi ke page lain
 	public static void fanBtnHandle(Button fanBtn, Stage stage) {
 		fanBtn.setOnMouseClicked(e -> {
 			NavigateController.navigateAdminFans(stage);

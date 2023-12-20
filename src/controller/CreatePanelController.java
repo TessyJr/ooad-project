@@ -20,6 +20,7 @@ public class CreatePanelController {
 		});
 	}
 	
+//	function untuk menambahkan panel
 	public static void createPanelBtnHandle(Button createPanelBtn, Stage stage, User user
 			) {
 		createPanelBtn.setOnMouseClicked(e -> {

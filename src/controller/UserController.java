@@ -15,6 +15,7 @@ import view.LoginPage;
 public class UserController {
 	private static Connect con = Connect.getInstance();
 
+//	function untuk cek apakah username unique atau tidak (unique -> tidak boleh sama dalam 1 database)
 	private static boolean isUsernameUnique(String username) {
 	    String query = "SELECT COUNT(*) FROM Users WHERE Username = ?";
 	    
@@ -34,6 +35,7 @@ public class UserController {
 	    return false;
 	}
 
+//	function untuk cek apakah email unique atau tidak (unique -> tidak boleh sama dalam 1 database)
 	private static boolean isEmailUnique(String email) {
 	    String query = "SELECT COUNT(*) FROM Users WHERE Email = ?";
 	    
@@ -53,17 +55,20 @@ public class UserController {
 	    return false;
 	}
 	
+//	function untuk validasi email harus terdapat '@' dan tidak boleh kosong
 	private static boolean isValidEmail(String email) {
 	    if (email.isEmpty() || !email.contains("@")) {
 	        return false;
 	    }
 	    return true;
 	}
-
+	
+// function untuk validasi panjang password dan kriteria password
 	private static boolean isValidPassword(String password) {
 	    return password.length() >= 6 && password.matches(".*[0-9].*") && password.matches(".*[a-zA-Z].*");
 	}
 	
+//  function untuk memanggil function validate register agar muncul error text nya
 	public static String addUser(String username, String email, String password, String confirmPassword, String role) {
         String validationError = validateUserAttributes(username, email, password, confirmPassword, role);
         if (!validationError.equals("Success!")) {
@@ -75,6 +80,7 @@ public class UserController {
         return "Success!";
     }
 
+//	function untuk memvalidasi atribut user dari username, email, password dan role
     private static String validateUserAttributes(String username, String email, String password, String confirmPassword, String role) {
         if (username.isEmpty()) {
             return "Username must be filled.";
@@ -107,7 +113,7 @@ public class UserController {
         return "Success!";
     }
 
-	
+//	function untuk cek email apakah sudah ada pada database atau belum
 	private static boolean isEmailExists(String email) {
 	    String query = "SELECT COUNT(*) FROM Users WHERE Email = ?";
 	    
@@ -127,6 +133,7 @@ public class UserController {
 	    return false;
 	}
 
+//	function untuk cek apakah password sudah sama dengan password pada database
 	private static boolean isPasswordMatch(String email, String password) {
 	    String query = "SELECT COUNT(*) FROM Users WHERE Email = ? AND Password = ?";
 	    
@@ -146,7 +153,8 @@ public class UserController {
 
 	    return false;
 	}
-    
+
+//	function untuk validasi atribut login (email dan password)
     private static String validateLogin(String email, String password) {
     	if (email.isEmpty()) {
             return "Email cannot be empty.";
@@ -167,6 +175,7 @@ public class UserController {
         return "Success!";
     }
 	
+//    function untuk memanggil function validate login agar muncul error text nya
     public static String login(String email, String password) {
     	String validationError = validateLogin(email, password);
         if (!validationError.equals("Success!")) {

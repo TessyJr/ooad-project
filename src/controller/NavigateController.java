@@ -21,6 +21,7 @@ import view.VendorUpdateItemPage;
 
 public class NavigateController {
 	
+//	semua function dalam class ini untuk menavigasikan ke page lainnya
 	public static void navigateAdminDashbaord(Stage stage) {
 		new AdminDashboardPage(stage);
 	}

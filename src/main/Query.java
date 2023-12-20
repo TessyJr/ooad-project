@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Query {
+	/* class ini berisi query dimana saat program di run maka akan auto generate tabel2
+	 * pada database php admin. Kemudian sudah divalidasi sehingga akun user hanya dapat sekali dibuat
+	 * */
 	
 	public Query() {
 		// TODO Auto-generated constructor stub

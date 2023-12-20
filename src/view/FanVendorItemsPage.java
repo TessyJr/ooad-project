@@ -133,6 +133,7 @@ public class FanVendorItemsPage {
         };
     }
 
+//    function untuk memunculkan modal popup
 	private void showItemDetailsPopup(Stage stage, Item item) {
 
 	    Alert alert = new Alert(AlertType.INFORMATION);

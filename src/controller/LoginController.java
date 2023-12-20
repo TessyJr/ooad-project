@@ -8,7 +8,7 @@ import view.LoginPage;
 import view.RegisterPage;
 
 public class LoginController {
-	
+//	function untuk login user
 	public static void loginHandle(Button loginBtn, Stage stage) {
 		loginBtn.setOnMouseClicked(e -> {
 	        String email = LoginPage.emailTF.getText();
@@ -18,7 +18,8 @@ public class LoginController {
 
 	        if (loginResult.equals("Success!")) {
 	            User user = UserController.getUserByEmail(email);
-
+	            
+//	            memvalidasi dashboard sesuai dengan role user
 	            if (user.getRole().equals("Admin")) {
 	                NavigateController.navigateAdminDashbaord(stage);
 	            } else if(user.getRole().equals("Influencer")) {

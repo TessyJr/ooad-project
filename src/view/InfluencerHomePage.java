@@ -50,6 +50,7 @@ public class InfluencerHomePage {
     TableColumn<Panel, Void> viewColumn;
     TableColumn<Panel, Void> finishedColumn;
     
+//    fuction untuk memunculkan modal popup
     private void showPanelDetailsPopup(Stage stage, Panel panel) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.initModality(Modality.APPLICATION_MODAL);
