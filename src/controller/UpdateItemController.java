@@ -23,6 +23,12 @@ public class UpdateItemController {
 			}
 		});
 	}
+	
+	public static void vendorHomeBtnHandle(Button vendorHomeBtn, Stage stage, User user) {
+		vendorHomeBtn.setOnMouseClicked(e -> {
+			NavigateController.navigateVendorHomePage(stage, user);
+		});
+	}
 
 	public UpdateItemController() {
 		// TODO Auto-generated constructor stub

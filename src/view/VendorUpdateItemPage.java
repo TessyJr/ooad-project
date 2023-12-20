@@ -87,6 +87,7 @@ public class VendorUpdateItemPage {
 	
 	private void actions(Stage stage, Item item, User user){
 		UpdateItemController.updateItemBtnHandle(updateItemBtn, item, stage, user);
+		UpdateItemController.vendorHomeBtnHandle(vendorHomeBtn, stage, user);
 		}
 		
 	public VendorUpdateItemPage(Stage stage, Item item, User user) {
